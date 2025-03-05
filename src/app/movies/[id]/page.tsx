@@ -1,24 +1,20 @@
 import { getMovieDetails, getMovieTrailer } from "@/lib/tmdb";
 import Image from "next/image";
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  overview: string;
-  vote_average: number;
-  release_date: string;
+interface PageProps {
+  params: { id: string };
 }
 
-export default async function MovieDetail({ params }: { params: { id: string } }) {
-  const { id } = await params; // Pastikan params.id di-await
+export default async function MovieDetail({ params }: PageProps) {
+  const { id } = await params
+  const movieId = await id; // Pastikan params.id di-await
 
-  if (!id) {
+  if (!movieId) {
     return <p className="text-center text-red-500">Invalid movie ID.</p>;
   }
 
-  const movie: Movie = await getMovieDetails(id);
-  const trailerUrl = await getMovieTrailer(id);
+  const movie = await getMovieDetails(movieId);
+  const trailerUrl = await getMovieTrailer(movieId);
 
   if (!movie) {
     return <p className="text-center text-red-500">Movie not found.</p>;
@@ -32,6 +28,7 @@ export default async function MovieDetail({ params }: { params: { id: string } }
           alt={movie.title}
           width={300}
           height={450}
+          priority
           className="rounded-md"
         />
         <div>
@@ -44,22 +41,17 @@ export default async function MovieDetail({ params }: { params: { id: string } }
 
       {/* Trailer */}
       {trailerUrl && (
-  <div className="mt-6">
-    <h2 className="text-2xl font-bold">🎥 Watch Trailer</h2>
-    <iframe
-      width="100%"
-      height="400"
-      src={trailerUrl}
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      sandbox="allow-scripts allow-same-origin allow-presentation"
-      referrerPolicy="no-referrer"
-      className="mt-4"
-    ></iframe>
-  </div>
-)}
-
-
+        <div className="mt-6">
+          <h2 className="text-2xl font-bold">🎥 Watch Trailer</h2>
+          <iframe
+            width="100%"
+            height="400"
+            src={trailerUrl}
+            allowFullScreen
+            className="mt-4"
+          ></iframe>
+        </div>
+      )}
     </main>
   );
 }
