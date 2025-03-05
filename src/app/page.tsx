@@ -3,8 +3,14 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+}
+
 export default async function Home() {
-  const movies = await getPopularMovies();
+  const movies:Movie[] = await getPopularMovies();
 
   if (!movies || movies.length === 0) {
     return (
