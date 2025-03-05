@@ -7,7 +7,7 @@ interface PageProps {
 
 export default async function MovieDetail({ params }: PageProps) {
   const { id } = await params
-  const movieId = await id; // Pastikan params.id di-await
+  const movieId = id; // Pastikan params.id di-await
 
   if (!movieId) {
     return <p className="text-center text-red-500">Invalid movie ID.</p>;
