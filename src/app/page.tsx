@@ -33,7 +33,7 @@ export default async function Home() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {movies.slice(0, 8).map((movie:any) => ( // Hanya menampilkan 8 film pertama
+        {movies.slice(0, 8).map((movie:Movie) => ( // Hanya menampilkan 8 film pertama
           <Link href={`/movies/${movie.id}`} key={movie.id}>
             <Card className="p-4 cursor-pointer hover:shadow-lg transition">
               <Image
