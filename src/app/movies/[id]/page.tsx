@@ -9,7 +9,9 @@ export async function generateStaticParams() {
 }
 
 export default async function MovieDetail({ params }: { params: { id: string } }) {
-  const movieId = params.id; // Tidak perlu await di params.id
+  // Await params sebelum mengakses properti id
+  const { id } = await params;
+  const movieId = id;
 
   if (!movieId) {
     return <p className="text-center text-red-500">Invalid movie ID.</p>;
