@@ -5,9 +5,13 @@ interface PageProps {
   params: { id: string };
 }
 
+// Tambahkan ini: generateStaticParams untuk memberi tahu Next.js tentang ID yang digunakan
+export async function generateStaticParams() {
+  return []; // Bisa dikosongkan jika tidak menggunakan SSG
+}
+
 export default async function MovieDetail({ params }: PageProps) {
-  const { id } = await params
-  const movieId = id; // Pastikan params.id di-await
+  const movieId = params.id; // Tidak perlu await di params.id
 
   if (!movieId) {
     return <p className="text-center text-red-500">Invalid movie ID.</p>;
@@ -28,7 +32,6 @@ export default async function MovieDetail({ params }: PageProps) {
           alt={movie.title}
           width={300}
           height={450}
-          priority
           className="rounded-md"
         />
         <div>
@@ -47,6 +50,7 @@ export default async function MovieDetail({ params }: PageProps) {
             width="100%"
             height="400"
             src={trailerUrl}
+            frameBorder="0"
             allowFullScreen
             className="mt-4"
           ></iframe>
