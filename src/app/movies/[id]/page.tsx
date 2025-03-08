@@ -5,8 +5,10 @@ interface PageProps {
   params: { id: string };
 }
 
-// Tambahkan ini: generateStaticParams untuk memberi tahu Next.js tentang ID yang digunakan
+// generateStaticParams untuk memberi tahu Next.js tentang ID yang digunakan
 export async function generateStaticParams() {
+  // Contoh: Jika Anda memiliki daftar ID film yang ingin di-generate secara statis
+  // return [{ id: '1' }, { id: '2' }, { id: '3' }];
   return []; // Bisa dikosongkan jika tidak menggunakan SSG
 }
 
