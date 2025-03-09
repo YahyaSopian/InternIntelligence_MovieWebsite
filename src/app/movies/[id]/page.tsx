@@ -1,16 +1,13 @@
 import { getMovieDetails, getMovieTrailer } from "@/lib/tmdb";
 import Image from "next/image";
 
-// generateStaticParams untuk memberi tahu Next.js tentang ID yang digunakan
-export async function generateStaticParams() {
-  // Contoh: Jika Anda memiliki daftar ID film yang ingin di-generate secara statis
-  // return [{ id: '1' }, { id: '2' }, { id: '3' }];
-  return []; // Bisa dikosongkan jika tidak menggunakan SSG
-}
 
-export default async function MovieDetail({ params }: { params: { id: string } }) {
+
+
+export default async function MovieDetail({ params }: {params: Promise<{ id: string }>} ) {
   // Await params sebelum mengakses properti id
   const { id } = await params;
+
   const movieId = id;
 
   if (!movieId) {
